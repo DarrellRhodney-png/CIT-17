@@ -66,10 +66,14 @@ Enter second number: <input type="number" name="num2"><br>
 if(isset($_POST['math'])){
   $a = $_POST['num1'];
   $b = $_POST['num2'];
-  echo "Sum: ".($a+$b)."<br>";
-  echo "Difference: ".($a-$b)."<br>";
-  echo "Product: ".($a*$b)."<br>";
-  echo "Quotient: ".($a/$b)."<hr>";
+  if ($b == 0) {
+    echo "Cannot divide by zero.<hr>";
+  } else {
+    echo "Sum: ".($a+$b)."<br>";
+    echo "Difference: ".($a-$b)."<br>";
+    echo "Product: ".($a*$b)."<br>";
+    echo "Quotient: ".($a/$b)."<hr>";
+  }
 }
 ?>
 
@@ -191,47 +195,22 @@ Science: <input type="number" name="science"><br>
 </form>
 <?php
 if(isset($_POST['grade'])){
-  $avg = ($_POST['math'] + $_POST['english'] + $_POST['science']) / 3;
-  if($avg >= 90) $g = "A";
-  elseif($avg >= 80) $g = "B";
-  elseif($avg >= 70) $g = "C";
-  elseif($avg >= 60) $g = "D";
-  else $g = "F";
-  echo "Average: ".round($avg,2)." | Grade: $g<hr>";
-}
-?>
+  $math = $_POST['math'];
+  $eng = $_POST['english'];
+  $sci = $_POST['science'];
+  $avg = ($math + $eng + $sci) / 3;
 
-<!-- 11 -->
-<form method="post">
-<b>11. Currency Converter</b><br>
-Amount in PHP: <input type="number" name="php"><br>
-<input type="submit" name="convert" value="Convert">
-</form>
-<?php
-if(isset($_POST['convert'])){
-  $p = $_POST['php'];
-  echo "₱$p = $" . ($p*0.017) . " USD<br>";
-  echo "₱$p = €" . ($p*0.016) . " EUR<br>";
-  echo "₱$p = ¥" . ($p*2.7) . " JPY<hr>";
-}
-?>
+  echo "Average: ".round($avg,2)."<br>";
 
-<!-- 12 -->
-<form method="post">
-<b>12. Travel Cost Estimator</b><br>
-Distance (km): <input type="number" name="distance"><br>
-Fuel Efficiency (km/L): <input type="number" name="eff"><br>
-Price per Liter (₱): <input type="number" name="price"><br>
-<input type="submit" name="travel" value="Estimate">
-</form>
-<?php
-if(isset($_POST['travel'])){
-  $fuel = $_POST['distance'] / $_POST['eff'];
-  $cost = $fuel * $_POST['price'];
-  echo "Estimated Travel Cost = ₱" . round($cost, 2) . "<hr>";
+  if($avg >= 75){
+    echo "Status: PASSED<hr>";
+  } else {
+    echo "Status: FAILED<hr>";
+  }
 }
 ?>
 
 </body>
 </html>
+
 
